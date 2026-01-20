@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Environment Variables (Security Risk)
+.env
+.env.local
+
+# Build Outputs
+dist/
+build/
+
+# Mac System Files
+.DS_Store
+
+# Logs
+npm-debug.log*
