@@ -2,13 +2,11 @@ import  { Kafka } from "kafkajs";
 import type { Producer } from "kafkajs";
 import { env } from "../config/env.js";
 
-// 1. Initialize Kafka Client
 const kafka = new Kafka({
   clientId: "logstream-api",
   brokers: [env.KAFKA_BROKER],
 });
 
-// 2. Create Producer
 export const producer: Producer = kafka.producer();
 
 import type { FastifyInstance } from "fastify";

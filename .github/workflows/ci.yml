@@ -11,7 +11,6 @@ jobs:
     name: Type Check & Lint
     runs-on: ubuntu-latest
 
-    # Set the working directory to 'api' since that's where package.json is
     defaults:
       run:
         working-directory: ./api
@@ -31,5 +30,4 @@ jobs:
         run: npm ci
 
       - name: Type Check
-        # This runs the TypeScript compiler just to check for errors, not to emit files
         run: npx tsc --noEmit

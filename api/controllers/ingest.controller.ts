@@ -8,7 +8,6 @@ export const createLog = async (
   reply: FastifyReply
 ) => {
   
-  // 1. Validate
   const result = logSchema.safeParse(request.body);
   
   if (!result.success) {
@@ -21,7 +20,6 @@ export const createLog = async (
   const logData = result.data;
 
   try {
-    // 2. Business Logic
     await producer.send({
       topic: 'app-logs',
       messages: [

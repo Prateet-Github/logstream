@@ -1,10 +1,10 @@
 # LogStream API
 
-![CI Status](https://github.com/prateettiwari/logstream/actions/workflows/ci.yml/badge.svg)
+![CI Status](https://github.com/Prateet-Github/logstream/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 
-A high-performance, async log ingestion service built with **Node.js**, **Fastify**, and **Kafka**. 
+A high-performance, async log ingestion service built with **Node.js**, **Fastify**, **Kafka**, and **Clickhouse**. 
 
 This service acts as the entry point for a distributed logging architecture. It validates incoming logs with high throughput and produces them to a Kafka topic for downstream processing (ClickHouse).
 
