@@ -7,6 +7,7 @@ const envSchema = z.object({
   PORT: z.string().default("3000").transform(Number),
   KAFKA_BROKER: z.string().min(1),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+  CLICKHOUSE_PASSWORD: z.string().default(""),
 });
 
 const _env = envSchema.safeParse(process.env);
