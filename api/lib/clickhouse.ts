@@ -2,7 +2,7 @@ import { createClient } from "@clickhouse/client";
 import { env } from "../config/env.js";
 
 export const clickhouse = createClient({
-  url: 'http://localhost:8123',
+  url: env.CLICKHOUSE_HOST,
   username: 'default',
   password: env.CLICKHOUSE_PASSWORD,
   database: 'default',

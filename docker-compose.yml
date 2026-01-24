@@ -1,9 +1,6 @@
-version: '3'
-
 services:
-  # 1. Kafka (KRaft Mode - No Zookeeper required)
   kafka:
-    image: confluentinc/cp-kafka:7.6.1 # Pinned for stability
+    image: confluentinc/cp-kafka:7.6.1
     hostname: kafka
     container_name: logstream-kafka
     ports:
@@ -18,16 +15,13 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_JMX_PORT: 9101
       KAFKA_JMX_HOSTNAME: localhost
-      # KRaft Specific Settings
       KAFKA_PROCESS_ROLES: 'broker,controller'
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka:29093'
       KAFKA_LISTENERS: 'PLAINTEXT://kafka:29092,CONTROLLER://kafka:29093,PLAINTEXT_HOST://0.0.0.0:9092'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
-      # Using a static Cluster ID to avoid "format" errors on startup
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
 
-  # 2. ClickHouse (The Database)
   clickhouse:
     image: clickhouse/clickhouse-server
     container_name: logstream-clickhouse
@@ -42,3 +36,30 @@ services:
       - CLICKHOUSE_USER=default
       - CLICKHOUSE_PASSWORD=password
       - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+
+  api:
+    build: ./api  
+    container_name: logstream-api
+    command: npx tsx server.ts
+    ports:
+      - "3000:3000"
+    depends_on:
+      - kafka
+      - clickhouse
+    environment:
+      - PORT=3000
+      - KAFKA_BROKER=kafka:29092
+      - CLICKHOUSE_HOST=http://clickhouse:8123
+      - CLICKHOUSE_PASSWORD=password
+
+  worker:
+    build: ./api 
+    container_name: logstream-worker
+    command: npx tsx worker/index.ts
+    depends_on:
+      - kafka
+      - clickhouse
+    environment:
+      - KAFKA_BROKER=kafka:29092
+      - CLICKHOUSE_HOST=http://clickhouse:8123
+      - CLICKHOUSE_PASSWORD=password
