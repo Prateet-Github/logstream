@@ -44,7 +44,7 @@ graph LR
     C -->|Consume Batch| D[Worker Service]
     D -->|Insert| E[(ClickHouse DB)]
 
-⚡ Quick Start
+Quick Start
 Prerequisites
 
 Docker & Docker Compose installed
@@ -83,7 +83,7 @@ Step C: Run Worker Locally
 cd api
 npx tsx worker/index.ts
 
-📡 API Usage
+API Usage
 1. Ingest a Log
 
 Send a log entry to the system.
@@ -112,5 +112,5 @@ curl http://localhost:3000/api/ingest/logs
 # Filter by service
 curl "http://localhost:3000/api/ingest/logs?service=user-service"
 
-📄 License
+License
 This project is licensed under the MIT License.
