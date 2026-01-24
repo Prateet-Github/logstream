@@ -44,7 +44,7 @@ graph LR
     C -->|Consume Batch| D[Worker Service]
     D -->|Insert| E[(ClickHouse DB)]
 
-    ```
+```
 
 Quick Start
 Prerequisites
