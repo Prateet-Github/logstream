@@ -4,16 +4,16 @@ import { logSchema } from '../schemas/log.schema.js';
 import type { LogInput } from '../schemas/log.schema.js';
 
 export const createLog = async (
-  request: FastifyRequest<{ Body: LogInput }>, 
+  request: FastifyRequest<{ Body: LogInput }>,
   reply: FastifyReply
 ) => {
-  
+
   const result = logSchema.safeParse(request.body);
-  
+
   if (!result.success) {
-    return reply.status(400).send({ 
-      error: 'Validation Failed', 
-      details: result.error.format() 
+    return reply.status(400).send({
+      error: 'Validation Failed',
+      details: result.error.format()
     });
   }
 
